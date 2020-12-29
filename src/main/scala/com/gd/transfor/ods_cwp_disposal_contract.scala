@@ -16,6 +16,24 @@ object ods_cwp_disposal_contract {
         df_tbl_disposal_contract.createOrReplaceTempView("tbl_disposal_contract")
         df_sys_user.createOrReplaceTempView("sys_user")
         df_dim_cwp_d_build_site_info.createOrReplaceTempView("dim_cwp_d_build_site_info")
+        //定义udf函数
+        spark.udf.register("changeState", (x: String) => {
+            var result = ""
+            val strings = x.split(",")
+            for (str <- strings){
+                val value = str.toInt match {
+                    case 5 => 1
+                    case 6 => 2
+                    case 7 => 3
+                    case 8 => 4
+                    case 9 => 5
+                    case 10 => 6
+                    case _ => ""
+                }
+                result += value.toString+","
+            }
+            result.substring(0, result.length-1)
+        })
         //定义sql
         val sql1 =
             """
@@ -23,7 +41,7 @@ object ods_cwp_disposal_contract {
               |     constructionid as construction_enterprise_id, buildid as build_enterprise_id,
               |     buildingsiteid as build_site_id, transportunitid as transport_enterprise_id,
               |     disposalsitetype as disposal_site_type, disposalsiteid as disposal_site_id,
-              |     disposalunitid as disposal_enterprise_id, garbagetype as garbage_type,
+              |     disposalunitid as disposal_enterprise_id, changeState(garbagetype) as garbage_type,
               |     disposalnum as disposal_num, disposalunit as disposal_unit,
               |     to_date(disposalstartdate, "yyyy-MM-dd") as disposal_start_date,
               |     to_date(disposalenddate, "yyyy-MM-dd") as disposal_end_date, disposalprice as disposal_unit_price,

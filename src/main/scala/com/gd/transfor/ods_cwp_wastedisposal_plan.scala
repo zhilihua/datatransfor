@@ -16,13 +16,31 @@ object ods_cwp_wastedisposal_plan {
         df_tbl_wastedisposal_plan.createOrReplaceTempView("tbl_wastedisposal_plan")
         df_sys_user.createOrReplaceTempView("sys_user")
         df_dim_cwp_d_build_site_info.createOrReplaceTempView("dim_cwp_d_build_site_info")
+        //定义udf函数
+        spark.udf.register("changeState", (x: String) => {
+            var result = ""
+            val strings = x.split(",")
+            for (str <- strings){
+                val value = str.toInt match {
+                    case 5 => 1
+                    case 6 => 2
+                    case 7 => 3
+                    case 8 => 4
+                    case 9 => 5
+                    case 10 => 6
+                    case _ => ""
+                }
+                result += value.toString+","
+            }
+            result.substring(0, result.length-1)
+        })
         //定义sql
         val sql1 =
             """
               |select a.id, schemename as scheme_name, sgunitid as construction_enterprise_id, jsunitid as build_enterprise_id,
               |     ysunitid as transport_enterprise_id, czunitid as disposal_enterprise_id, buildingsiteid as build_site_id,
               |     engineerproperty as engineer_property, disposalsiteid as disposal_site_id, builtuparea as builtup_area,
-              |     totalcost as total_cost, garbagetype as garbage_type, expectpronum as expectpro_num,
+              |     totalcost as total_cost, changeState(garbagetype) as garbage_type, expectpronum as expectpro_num,
               |     disposalbudget as disposal_budget,
               |     to_date(startdate, "yyyy-MM-dd") as start_date, to_date(enddate, "yyyy-MM-dd") as end_date,
               |     backfillnum as back_fillnum, outboundquantity as outbound_quantity, preventemea,
