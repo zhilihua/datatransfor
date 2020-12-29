@@ -48,7 +48,7 @@ object ods_cwp_credit_illegal_registration {
               |from tbl_credit_illegal_details_interface a
               |     left join tbl_credit_illegal_details_interface_expand c on a.id=c.credit_illegal_details_interface_id
               |     left join sys_user d on a.user_id=d.username
-              |     where a.state != 3 and a.is_app != 1 and c.speed is not null and a.create_time>'2019-12-01'
+              |     where a.state != 3 and a.is_app != 1 and a.create_time>'2019-12-01'
               |     and d.dept_id=2
               |""".stripMargin
 
