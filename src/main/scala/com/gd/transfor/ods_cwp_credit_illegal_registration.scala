@@ -36,7 +36,7 @@ object ods_cwp_credit_illegal_registration {
         //定义sql
         val sql1 =
             """
-              |select a.id, no as car_card_number, company_name as enterprise_name,
+              |select a.id, no as car_card_number, company_name as enterprise_name, a.sn,
               |     driver_name, driver_card as driver_card_number, a.wgbs as illegal_type_code, wgbs_desc as illegal_type_desc,
               |     violation_location as illegal_location, violation_time as illegal_date,
               |     penalty_info as punish_desc,

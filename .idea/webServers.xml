@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f81516c2-c519-4cd6-b3d5-ecf1cf118a88" name="dataTransfer" url="http://42.236.61.123">
+        <fileTransfer host="42.236.61.123" port="9892" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="9892" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
