@@ -66,13 +66,13 @@ object dim_cwp_d_disposal_site_info {
               |     d.id as update_user, c.update_time, notes,
               |     addProvince(c.area_id) as province_id, addCity(c.area_id) as city_id,
               |     c.department_id, audit_state, 2 as dept_id,
-              |     enable_time,stop_time,enable_user,stop_user
+              |     enable_time,stop_time,enable_user,stop_user, permit_state, state
               |from (select a.id as disposal_site_id, a.name as disposal_site_name, type as disposal_type,
               |     departmentid as area_id, czunitid as disposal_enterprise_id, address, changeLat(longitude, latitude) as lat,
               |     changeLng(longitude, latitude) as lng, radius ,qyscope as area_range, contact as leader_name, a.phone as leader_phone,
               |     imgURL as disposal_picture, add_datetime as create_time, b.id as create_user,
               |     xguserid as update_user, modifytime as update_time, bak as notes, f.id as department_id, changeState(a.state) as audit_state,
-              |     enable_time,stop_time,x.id as enable_user,y.id as stop_user
+              |     enable_time,stop_time,x.id as enable_user,y.id as stop_user, certicateSate as permit_state, state
               |from (SELECT
               |	temp.*, CASE
               |WHEN temp.xntype = 1 THEN
@@ -167,7 +167,7 @@ object dim_cwp_d_disposal_site_info {
               |disposal_site_id,disposal_site_name,disposal_type,area_id,disposal_enterprise_id,
               |address,lat,lng,radius,area_range,leader_name,leader_phone,disposal_picture,create_time,
               |create_user,update_user,update_time,notes,province_id,city_id,department_id,audit_state,dept_id,
-              |enable_time,stop_time,enable_user,stop_user
+              |enable_time,stop_time,enable_user,stop_user,permit_state,state
               |""".stripMargin
         val sql =
             s"""
