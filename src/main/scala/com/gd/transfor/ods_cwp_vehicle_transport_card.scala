@@ -33,8 +33,9 @@ object ods_cwp_vehicle_transport_card {
               |from tbl_vehicletransport_permit a
               |     left join sys_user b on a.djuserid=b.username
               |     left join tbl_supervisionunit c on a.Issuingunit=c.id where (c.id < 410002 or c.id > 411001) and c.id != 410001016
-              |     and b.dept_id=2 and date(a.addtime)>'2019-12-01'
+              |
               |""".stripMargin
+        //and date(a.addtime)>'2019-12-01'
 
         val df = spark.sql(sql1)
         var columns = ""

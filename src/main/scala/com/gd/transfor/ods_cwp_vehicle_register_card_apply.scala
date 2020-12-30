@@ -39,8 +39,9 @@ object ods_cwp_vehicle_register_card_apply {
               |from tbl_twoway_regcard_apply a
               |     left join sys_user b on a.applyuserid=b.username
               |     left join dim_cwp_d_build_site_info c on a.buildingsiteid=c.build_site_id
-              |     where b.dept_id=2 and a.applytime>'2019-12-01'
+              |
               |""".stripMargin
+        //where a.applytime>'2019-12-01'
         var df = spark.sql(sql1)
         df.createOrReplaceTempView("tmp")
         df = spark.sql(

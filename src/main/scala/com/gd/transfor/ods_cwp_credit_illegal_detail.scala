@@ -86,10 +86,10 @@ object ods_cwp_credit_illegal_detail {
               |     left join tbl_credit_illegal_details_interface_expand c on a.id=c.credit_illegal_details_interface_id
               |     left join sys_user d on a.user_id=d.username
               |     left join dim_cwp_d_enterprise_info e on a.company_name=e.enterprise_name
-              |     where (a.state = 2 or a.state = 7) and a.create_time>'2019-12-01' and e.enterprise_id is not null
-              |     and d.dept_id=2
+              |     where (a.state = 2 or a.state = 7) and e.enterprise_id is not null
               |""".stripMargin
 
+//        and a.create_time>'2019-12-01'
         val df = spark.sql(sql1)
 
         //进行聚合

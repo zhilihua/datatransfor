@@ -48,9 +48,9 @@ object ods_cwp_vehicle_register_card {
                |       start_type, end_name, end_lng_lat, end_address, end_type, a.state, number as apply_number, 2 as dept_id, c.department_id
                |from tbl_twoway_reg_card a
                |     left join dim_cwp_d_build_site_info c on a.buildingsiteid=c.build_site_id
-               |     where date(a.begindate)>'2019-12-01'
+               |
                |""".stripMargin  //$yesterday 2020-07-24
-
+//        where date(a.begindate)>'2019-12-01'
         import spark.implicits._
         var df = spark.sql(sql1)
         //df.show()
