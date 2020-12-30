@@ -134,4 +134,11 @@ object SqlUtil {
 
     //将车辆状态申请表中vehicle_type_id的3设置为null
     val vehicle_register_sql_apply = "UPDATE ods_cwp_vehicle_register_card_apply SET vehicle_type_id = null where vehicle_type_id=3"
+
+    //更新工地许可状态
+    val build_approval_state_sql =
+        """
+          |update dim_cwp_d_build_site_info a, ods_cwp_discharge_approval b set a.permit_state = '1'
+          |where a.build_site_id = b.build_site_id and b.state = '5'
+          |""".stripMargin
 }

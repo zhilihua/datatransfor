@@ -47,7 +47,7 @@ object dim_cwp_d_build_site_info {
               |from tbl_dregs_source_location a
               |     left join sys_user b on a.djuserid=b.username
               |     left join (select id, area_id from sys_department e where e.id < 410002 or e.id > 411001) d on a.departmentid=d.area_id
-              |     where b.dept_id=2
+              |     where a.departmentid LIKE '4101%'
               |""".stripMargin
         val df = spark.sql(sql1)
         val list = DfTransferUtil.df2Map(df)
