@@ -50,7 +50,6 @@ object ods_cwp_wastedisposal_plan {
               |from tbl_wastedisposal_plan a
               |     left join sys_user b on a.djuserid=b.username
               |     left join dim_cwp_d_build_site_info d on a.buildingsiteid=d.build_site_id
-              |     where b.dept_id=2
               |""".stripMargin
         val df = spark.sql(sql1)
         var columns = ""
