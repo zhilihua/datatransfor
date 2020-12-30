@@ -58,7 +58,6 @@ object ods_cwp_transportation_contract {
               |     left join sys_user b on a.djuserid=b.username
               |     left join sys_user c on a.qruserid=c.username
               |     left join dim_cwp_d_build_site_info d on a.buildingsiteid=d.build_site_id
-              |     where b.dept_id=2
               |""".stripMargin
         val df = spark.sql(sql1)
         var columns = ""
