@@ -80,7 +80,7 @@ object dim_cwp_d_vehicle_info {
           |                     left join dim_cwp_d_enterprise_info f on e.GrpID=f.enterprise_id
           |                     where f.dept_id=2) d on a.CID=d.CID
           |     left join tbl_vehicle_driver l on a.CID=l.CID
-          |     where d.DevID is not null and a.NO like '豫A%' and d.enterprise_name is not null
+          |     where d.enterprise_name is not null
           |""".stripMargin
 
         var df = spark.sql(sql1)
@@ -97,8 +97,8 @@ object dim_cwp_d_vehicle_info {
         df = df.drop("userid").drop("user_id")
 
         import spark.implicits._
-        df = df.filter($"state" !== 1)
-        df = df.filter($"Flag" === 0)
+//        df = df.filter($"state" !== 1)
+//        df = df.filter($"Flag" === 0)
         val list = DfTransferUtil.df2Map(df)
         MyJDBCUtil.updateDataList(getSql, list, outProPath)
 
