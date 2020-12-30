@@ -43,7 +43,7 @@ object ods_cwp_disposal_approval {
               |from tbl_companytran_approval a
               |     right join (select f.*, g.id as invalid_user
               |                 from tbl_consumptivefield_permit f
-              |                     left join sys_user g on f.djuserid=g.username where g.dept_id=2) b on a.id=b.applyid
+              |                     left join sys_user g on f.djuserid=g.username) b on a.id=b.applyid
               |     left join sys_user c on a.applyuserid=c.username
               |     left join sys_user d on a.approvalaccount=d.username
               |     left join sys_user e on a.publicaccount=e.username

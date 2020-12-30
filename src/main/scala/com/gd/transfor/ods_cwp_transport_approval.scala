@@ -43,7 +43,6 @@ object ods_cwp_transport_approval {
               |                     left join sys_user e on d.djuserid=e.username) b on a.id=b.applyid
               |     left join sys_user c on a.applyuserid=c.username
               |     left join sys_user f on a.approvalaccount=f.username
-              |     where c.dept_id=2
               |""".stripMargin
         val df = spark.sql(sql1)
         var columns = ""
