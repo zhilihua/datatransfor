@@ -127,7 +127,7 @@ object SqlUtil {
     from  dim_cwp_d_vehicle_info a
     left join dim_cwp_d_enterprise_info b on a.enterprise_id=b.enterprise_id
     left join dim_cwp_d_terminal_info c on a.terminal_sn=c.terminal_sn
-    where a.dept_id=2 and a.is_delete=0 and a.audit_state='1'"""
+    where a.dept_id=2 and a.is_delete=0 and a.audit_state='1' and a.manage_state='1'"""
 
     //将车辆状态表中vehicle_type_id的3设置为null
     val vehicle_register_sql = "UPDATE ods_cwp_vehicle_register_card SET vehicle_type_id = null where vehicle_type_id=3"
