@@ -21,7 +21,7 @@ object ods_cwp_vehicle_register_card_apply {
         df_ods_cwp_vehicle_register_card.createOrReplaceTempView("ods_cwp_vehicle_register_card")
         //注册udf
         spark.udf.register("addCoords", OdsCwpVehicleRegisterCardApplyUdf.addCoords _)
-        spark.udf.register("changeState", OdsCwpVehicleRegisterCardApplyUdf.changeState _)
+//        spark.udf.register("changeState", OdsCwpVehicleRegisterCardApplyUdf.changeState _)
         spark.udf.register("changeLines", OdsCwpVehicleRegisterCardApplyUdf.changeLines _)
 
         val sql1 =
@@ -35,11 +35,11 @@ object ods_cwp_vehicle_register_card_apply {
               |     transportnum as expect_transport_number, to_date(begindate, "yyyy-MM-dd") as start_date,
               |     disposalconid as disposal_contract, taskplan as transport_plan, greenpact as environment_agreement,
               |     b.id as apply_user_account, to_timestamp(applytime, "yyyy-MM-dd HH:mm:ss") as apply_date,
-              |     changeState(state) as state, c.department_id, 2 as dept_id, url as annex_path
+              |     a.state, c.department_id, 2 as dept_id, url as annex_path
               |from tbl_twoway_regcard_apply a
               |     left join sys_user b on a.applyuserid=b.username
               |     left join dim_cwp_d_build_site_info c on a.buildingsiteid=c.build_site_id
-              |
+              |     where a.state=0 or a.state=1 or a.state=2
               |""".stripMargin
         //where a.applytime>'2019-12-01'
         var df = spark.sql(sql1)

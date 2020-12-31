@@ -115,6 +115,7 @@ object dim_cwp_d_disposal_site_info {
               |			tbl_dregs_dump_location s
               |		WHERE
               |			1 = 1
+              |         and s.departmentid != 410122
               |		AND s.id NOT IN (
               |			SELECT DISTINCT
               |				s.id
