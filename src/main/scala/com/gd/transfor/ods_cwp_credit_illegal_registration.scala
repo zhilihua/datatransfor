@@ -61,6 +61,7 @@ object ods_cwp_credit_illegal_registration {
               |     left join dim_cwp_d_enterprise_info b on a.enterprise_name=b.enterprise_name
               |     left join dim_cwp_d_driver_info c on a.driver_name=c.driver_name
               |     left join dim_cwp_d_vehicle_info d on a.car_card_number=d.car_card_number
+              |     where b.enterprise_type_id=3
               |""".stripMargin)
         var columns = ""
         for(col <- df.columns){

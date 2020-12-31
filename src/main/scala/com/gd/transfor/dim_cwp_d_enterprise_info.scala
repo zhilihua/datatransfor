@@ -30,7 +30,8 @@ object dim_cwp_d_enterprise_info {
         spark.udf.register("changeLng", DimCwpDEnterpriseInfoUdf.changeLng _)
         spark.udf.register("changeLat", DimCwpDEnterpriseInfoUdf.changeLat _)
         spark.udf.register("changeState",(x: Int, y: String) => {
-            if(x == 3 && y != "410001") 0
+//            if(x == 3 && y != "410001") 0
+            if(x == 3 && y.startsWith("410001")) 0
             else 1
         })
         spark.udf.register("addShortName", CompanyShortName.getNormalCompanyJcAll _)

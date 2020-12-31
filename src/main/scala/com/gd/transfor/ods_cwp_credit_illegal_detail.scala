@@ -153,15 +153,16 @@ object ods_cwp_credit_illegal_detail {
         val schema = StructType(fields)
 
         var newDF = spark.createDataFrame(rdd2, schema)
-        newDF = newDF.drop("vehicle_id")
+        newDF = newDF.drop("vehicle_id").drop("enterprise_id")
         newDF.createOrReplaceTempView("tmp")
         newDF = spark.sql(
             """
-              |select a.*, b.province_id, b.area_id, c.driver_id, d.vehicle_id, e.sn from tmp a
+              |select a.*, b.province_id, b.area_id, c.driver_id, d.vehicle_id, e.sn, b.enterprise_id from tmp a
               |     left join dim_cwp_d_enterprise_info b on a.enterprise_name=b.enterprise_name
               |     left join dim_cwp_d_driver_info c on a.driver_name=c.driver_name
               |     left join dim_cwp_d_vehicle_info d on a.car_card_number=d.car_card_number
               |     left join tbl_credit_illegal_details_interface e on a.id=e.id
+              |     where b.enterprise_type_id=3
               |""".stripMargin)
 
         var columns = ""
