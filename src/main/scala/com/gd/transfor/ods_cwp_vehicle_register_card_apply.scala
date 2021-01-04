@@ -46,7 +46,8 @@ object ods_cwp_vehicle_register_card_apply {
         df.createOrReplaceTempView("tmp")
         df = spark.sql(
             """
-              |select a.*, b.is_invol, b.vehicle_type_id from tmp a
+              |select a.*, b.is_invol,
+              |     case when b.vehicle_type_id is null then 0 else b.vehicle_type_id end vehicle_type_id from tmp a
               |     left join (
               |     select distinct apply_id, is_invol, vehicle_type_id from ods_cwp_vehicle_register_card) b on a.id=b.apply_id
               |""".stripMargin)

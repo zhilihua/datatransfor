@@ -133,7 +133,11 @@ object SqlUtil {
     val vehicle_register_sql = "UPDATE ods_cwp_vehicle_register_card SET vehicle_type_id = null where vehicle_type_id=3"
 
     //将车辆状态申请表中vehicle_type_id的3设置为null
-    val vehicle_register_sql_apply = "UPDATE ods_cwp_vehicle_register_card_apply SET vehicle_type_id = null where vehicle_type_id=3"
+    val vehicle_register_sql_apply =
+        """UPDATE ods_cwp_vehicle_register_card_apply SET vehicle_type_id = null where vehicle_type_id=3
+          |""".stripMargin
+    val vehicle_register_sql_apply1 = "UPDATE ods_cwp_vehicle_register_card_apply SET department_id=410001 where id='6d373d808a6d4134a0f9289b6e0ba242'"
+    val vehicle_register_sql_apply2 = "UPDATE ods_cwp_vehicle_register_card_apply SET department_id=410001 where id='ecd9e4602e704b4da85e5008ad244b85'"
 
     //更新工地许可状态
     val build_approval_state_sql =

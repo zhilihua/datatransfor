@@ -42,14 +42,17 @@ object dim_cwp_d_build_site_info {
               |     changeLngLats(qyscope) as area_range, contact as build_leader, a.phone as leader_phone, a.email as leader_email,
               |     imgURL as build_picture, changeState(state) as is_cancelled, bak as notes, b.id as create_user,
               |     add_datetime as create_time, cancel_datetime as cancel_time, modifytime as update_time,
-              |     addProvince(b.area_id) as province_id, addCity(b.area_id) as city_id,
+              |     addProvince(departmentid) as province_id, addCity(departmentid) as city_id,
               |     d.id as department_id, 0 as is_delete, 2 as dept_id, 1 as audit_state,changeGrate(grade_type) as grade_type
               |from tbl_dregs_source_location a
               |     left join sys_user b on a.djuserid=b.username
               |     left join (select id, area_id from sys_department e where e.id < 410002 or e.id > 411001) d on a.departmentid=d.area_id
               |     where a.departmentid LIKE '4101%'
               |""".stripMargin
-        val df = spark.sql(sql1)
+        var df = spark.sql(sql1)
+        import spark.implicits._
+        df = df.filter($"area_id" !== 410122)
+        df = df.filter($"department_id" isNotNull)
         val list = DfTransferUtil.df2Map(df)
         MyJDBCUtil.updateDataList(getSql, list, outProPath)
 
