@@ -162,8 +162,9 @@ object ods_cwp_credit_illegal_detail {
               |     left join dim_cwp_d_driver_info c on a.driver_name=c.driver_name
               |     left join dim_cwp_d_vehicle_info d on a.car_card_number=d.car_card_number
               |     left join tbl_credit_illegal_details_interface e on a.id=e.id
-              |     where b.enterprise_type_id=3
+              |
               |""".stripMargin)
+        //where b.enterprise_type_id=3
 
         var columns = ""
         for(col <- newDF.columns){
