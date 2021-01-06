@@ -145,4 +145,21 @@ object SqlUtil {
           |update dim_cwp_d_build_site_info a, ods_cwp_discharge_approval b set a.permit_state = '1'
           |where a.build_site_id = b.build_site_id and b.state = '5'
           |""".stripMargin
+    //更新车辆状态表1
+    val vehicle_status_sql1 =
+        """
+          |update dwd_h_cwp_vehicle_state_card_info a INNER join (select vehicle_id from ods_cwp_vehicle_transport_card where state = 1) b
+          |on a.vehicle_id = b.vehicle_id
+          |set a.transport_card_status = 1 WHERE 1=1
+          |""".stripMargin
+
+    //更新车辆状态表2
+    val vehicle_status_sql2 =
+        """
+          |update dwd_h_cwp_vehicle_state_card_info a INNER join (select count(case when state = 0 then 1 else null end) state0,
+          | count(case when state = 1 then 1 else null end) state1,
+          |vehicle_id from ods_cwp_vehicle_register_card group by vehicle_id having state0 = 0) b
+          |on a.vehicle_id = b.vehicle_id
+          |set a.register_card_status = 0 where register_card_status = 1
+          |""".stripMargin
 }
