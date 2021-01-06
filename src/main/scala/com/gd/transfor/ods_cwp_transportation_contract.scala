@@ -53,7 +53,7 @@ object ods_cwp_transportation_contract {
               |     bak as remark,
               |     c.id as audit_user,
               |     to_timestamp(confirmtime, "yyyy-MM-dd HH:mm:ss") as audit_time,
-              |     state as audit_state, 2 as dept_id, d.department_id
+              |     1 as audit_state, 2 as dept_id, d.department_id
               |from tbl_transportation_contract a
               |     left join sys_user b on a.djuserid=b.username
               |     left join sys_user c on a.qruserid=c.username
